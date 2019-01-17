@@ -3,8 +3,6 @@ package com.greenfoxacademy.projectweek1restapi.model;
 
 public class JwtUser {
     private String userName;
-
-
     private long id;
     private String role;
 

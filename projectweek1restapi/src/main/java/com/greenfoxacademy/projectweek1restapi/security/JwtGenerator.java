@@ -1,10 +1,10 @@
 package com.greenfoxacademy.projectweek1restapi.security;
 
 
-import com.greenfoxacademy.projectweek1restapi.model.JwtUser;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import com.greenfoxacademy.projectweek1restapi.model.JwtUser;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -22,7 +22,7 @@ public class JwtGenerator {
 
         return Jwts.builder()
                 .setClaims(claims)
-                .signWith(SignatureAlgorithm.HS256, "Lorem ipsum dolor sit amet consectetur adipiscing elit")
+                .signWith(SignatureAlgorithm.HS512, "LoremipsumdolorsitametconsecteturLoremipsumdolorsitametconsecteturLoremipsumdolorsitametconsecteturLoremipsumdolorsitametconsecteturLoremipsumdolorsitametconsecteturLoremipsumdolorsitametconsectetur")
                 .compact();
     }
 }

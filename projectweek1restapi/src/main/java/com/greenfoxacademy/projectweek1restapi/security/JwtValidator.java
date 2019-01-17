@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class JwtValidator {
 
 
-    private String secret = "Lorem ipsum dolor sit amet consectetur adipiscing elit";
+    private String secret = "LoremipsumdolorsitametconsecteturLoremipsumdolorsitametconsecteturLoremipsumdolorsitametconsecteturLoremipsumdolorsitametconsecteturLoremipsumdolorsitametconsecteturLoremipsumdolorsitametconsectetur";
 
     public JwtUser validate(String token) {
 
