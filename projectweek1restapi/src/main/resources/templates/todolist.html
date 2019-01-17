@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <title>Todo CRUD App</title>
+</head>
+<body>
+<h1>Todos for today</h1>
+
+<form method="post" action="/todo/search" id="filter-todo">
+    <input name="title" type="text" placeholder="Find by title"/>
+    <button>Search</button>
+</form>
+
+<a href="/todo/add">Add new todo</a>
+<table>
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Action</th>
+        <th>Done</th>
+        <th>Urgent</th>
+        <th>Delete</th>
+        <th>Edit</th>
+        <th>Assignee</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <tr th:each="todo : ${todos}">
+        <td th:text="${todo.getId()}"></td>
+        <td th:text="${todo.getTitle()}"></td>
+        <td th:text="${todo.isDone()}"></td>
+        <td th:text="${todo.isUrgent()}"></td>
+        <td> <a th:href="'/' + ${todo.getId()} + '/com.greenfoxacademy.projectweek1restapi.repository'">XXX</a></td>
+        <td> <a th:href="'/' + ${todo.getId()} + '/edit'">[]</a></td>
+        <td th:text="${todo.assignee?.name}"></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
