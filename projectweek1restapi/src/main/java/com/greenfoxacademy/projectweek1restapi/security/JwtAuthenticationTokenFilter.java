@@ -2,6 +2,8 @@ package com.greenfoxacademy.projectweek1restapi.security;
 
 
 import com.greenfoxacademy.projectweek1restapi.model.JwtAuthenticationToken;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
@@ -17,6 +19,19 @@ public class JwtAuthenticationTokenFilter extends AbstractAuthenticationProcessi
     public JwtAuthenticationTokenFilter() {
         super("/api/**");
     }
+
+    /*
+    //??on
+    @Autowired
+    JwtAuthenticationProvider jwtAuthenticationProvider;
+
+    @Override
+    @Autowired
+    public void setAuthenticationManager(AuthenticationManager authenticationManager) {
+        super.setAuthenticationManager(authenticationManager);
+    }
+    //??off
+    */
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws AuthenticationException, IOException, ServletException {
@@ -42,4 +57,5 @@ public class JwtAuthenticationTokenFilter extends AbstractAuthenticationProcessi
         super.successfulAuthentication(request, response, chain, authResult);
         chain.doFilter(request, response);
     }
+
 }
