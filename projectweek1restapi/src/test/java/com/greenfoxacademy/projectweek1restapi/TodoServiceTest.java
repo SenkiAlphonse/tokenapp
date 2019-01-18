@@ -19,6 +19,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -38,12 +39,19 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
         classes = {
                 TodoServiceImpl.class,
-                TodoRepository.class
+                TodoRepository.class,
+                JwtAuthenticationProvider.class,
+                JwtValidator.class,
+                JwtSuccessHandler.class,
+                JwtAuthenticationEntryPoint.class,
+                JwtAuthenticationTokenFilter.class,
+                JwtGenerator.class
         }
 )
 @AutoConfigureMockMvc
 @TestPropertySource(locations="classpath:application-test.properties")
-@EnableAutoConfiguration
+@EnableAutoConfiguration//(classes = {JwtAuthenticationTokenFilter.class, JwtAuthenticationProvider.class, JwtSecurityConfig.class})
+@ContextConfiguration(classes = {JwtAuthenticationTokenFilter.class, JwtAuthenticationProvider.class, JwtSecurityConfig.class})
 public class TodoServiceTest {
 
     @Autowired
@@ -55,7 +63,17 @@ public class TodoServiceTest {
     @Autowired
     TodoRepository repo;
 
-    @MockBean
+    @Autowired
+    JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
+
+    @Autowired
+    JwtAuthenticationProvider jwtAuthenticationProvider;
+
+    @Autowired
+    JwtGenerator jwtGenerator;
+
+    @Autowired
+    JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
 
     @Test
@@ -64,6 +82,7 @@ public class TodoServiceTest {
         todoSvc.addTodo(new Todo("macska"));
         todoSvc.addTodo(new Todo("kutya"));
 
+        //when(this.jwtAuthenticationProvider.)
 
         //when(this.todoSvc.getAll()).thenReturn(Arrays.asList(macska, kutya));
 

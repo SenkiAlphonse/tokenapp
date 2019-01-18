@@ -20,7 +20,7 @@ public class JwtAuthenticationTokenFilter extends AbstractAuthenticationProcessi
         super("/api/**");
     }
 
-    /*
+
     //??on
     @Autowired
     JwtAuthenticationProvider jwtAuthenticationProvider;
@@ -31,7 +31,7 @@ public class JwtAuthenticationTokenFilter extends AbstractAuthenticationProcessi
         super.setAuthenticationManager(authenticationManager);
     }
     //??off
-    */
+
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws AuthenticationException, IOException, ServletException {
