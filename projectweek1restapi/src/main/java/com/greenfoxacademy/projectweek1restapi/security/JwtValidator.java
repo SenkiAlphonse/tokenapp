@@ -9,27 +9,26 @@ import org.springframework.stereotype.Component;
 public class JwtValidator {
 
 
-    private String secret = "LoremipsumdolorsitametconsecteturLoremipsumdolorsitametconsecteturLoremipsumdolorsitametconsecteturLoremipsumdolorsitametconsecteturLoremipsumdolorsitametconsecteturLoremipsumdolorsitametconsectetur";
+  private String secret = "LoremipsumdolorsitametconsecteturLoremipsumdolorsitametconsecteturLoremipsumdolorsitametconsecteturLoremipsumdolorsitametconsecteturLoremipsumdolorsitametconsecteturLoremipsumdolorsitametconsectetur";
 
-    public JwtUser validate(String token) {
+  public JwtUser validate(String token) {
 
-        JwtUser jwtUser = null;
-        try {
-            Claims body = Jwts.parser()
-                    .setSigningKey(secret)
-                    .parseClaimsJws(token)
-                    .getBody();
+    JwtUser jwtUser = null;
+    try {
+      Claims body = Jwts.parser()
+          .setSigningKey(secret)
+          .parseClaimsJws(token)
+          .getBody();
 
-            jwtUser = new JwtUser();
+      jwtUser = new JwtUser();
 
-            jwtUser.setUserName(body.getSubject());
-            jwtUser.setId(Long.parseLong((String) body.get("userId")));
-            jwtUser.setRole((String) body.get("role"));
-        }
-        catch (Exception e) {
-            System.out.println(e);
-        }
-
-        return jwtUser;
+      jwtUser.setUserName(body.getSubject());
+      jwtUser.setId(Long.parseLong((String) body.get("userId")));
+      jwtUser.setRole((String) body.get("role"));
+    } catch (Exception e) {
+      System.out.println(e);
     }
+
+    return jwtUser;
+  }
 }

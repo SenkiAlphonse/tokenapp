@@ -8,7 +8,8 @@ import java.util.List;
 
 @Repository
 public interface TodoRepository extends CrudRepository<Todo, Long> {
-    List<Todo> findTodosByTitleContaining(String term);
-    List<Todo> findAllByOrderByIdDesc();
+  List<Todo> findTodosByTitleContaining(String term);
+
+  List<Todo> findAllByOrderByIdDesc();
 
 }

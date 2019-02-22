@@ -20,6 +20,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
+
 import java.nio.charset.Charset;
 import java.util.Arrays;
 
@@ -37,73 +38,70 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(controllers = TodoRestController.class, secure = false)
-@TestPropertySource(locations="classpath:persistence-todo.properties")
+@TestPropertySource(locations = "classpath:persistence-todo.properties")
 public class TodoRestControllerTest {
 
-    private MediaType contentType = new MediaType(MediaType.APPLICATION_JSON.getType(),
-            MediaType.APPLICATION_JSON.getSubtype(),
-            Charset.forName("utf8"));
+  private MediaType contentType = new MediaType(MediaType.APPLICATION_JSON.getType(),
+      MediaType.APPLICATION_JSON.getSubtype(),
+      Charset.forName("utf8"));
 
-    @Autowired
-    private MockMvc mockMvc;
+  @Autowired
+  private MockMvc mockMvc;
 
-    @MockBean
-    private TodoServiceImpl todoSvc;
+  @MockBean
+  private TodoServiceImpl todoSvc;
 
-    @MockBean
-    private AssigneeServiceImpl assSvc;
+  @MockBean
+  private AssigneeServiceImpl assSvc;
 
-    @Test
-    public void testList() throws Exception {
+  @Test
+  public void testList() throws Exception {
 
-        Todo macska = new Todo("macska");
-        Todo kutya = new Todo("kutya");
-        when(this.todoSvc.getAll()).thenReturn(Arrays.asList(macska, kutya));
+    Todo macska = new Todo("macska");
+    Todo kutya = new Todo("kutya");
+    when(this.todoSvc.getAll()).thenReturn(Arrays.asList(macska, kutya));
 
-        doAnswer((Answer<TodosListDto>) invocation -> {
-            Todo todo = invocation.getArgument(0);
-            TodosListDto dto = new TodosListDto();
-            dto.title = todo.getTitle();
-            dto.done = todo.isDone();
-            dto.urgent = todo.isUrgent();
-            return dto;
-        }).when(this.todoSvc).todoToListDto(any());
+    doAnswer((Answer<TodosListDto>) invocation -> {
+      Todo todo = invocation.getArgument(0);
+      TodosListDto dto = new TodosListDto();
+      dto.title = todo.getTitle();
+      dto.done = todo.isDone();
+      dto.urgent = todo.isUrgent();
+      return dto;
+    }).when(this.todoSvc).todoToListDto(any());
 
-        mockMvc.perform(get("/api/todo")
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$", Matchers.hasSize(2)))
-                .andExpect(jsonPath("$[0].title", is("macska")))
-                .andExpect(jsonPath("$[1].title", is("kutya")));
+    mockMvc.perform(get("/api/todo")
+        .contentType(MediaType.APPLICATION_JSON))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$", Matchers.hasSize(2)))
+        .andExpect(jsonPath("$[0].title", is("macska")))
+        .andExpect(jsonPath("$[1].title", is("kutya")));
+  }
 
-    }
+  @Test
+  public void testListActive() throws Exception {
 
-    @Test
-    public void testListActive() throws Exception {
+    Todo macska = new Todo("macska");
+    macska.setDone(true);
+    Todo kutya = new Todo("kutya");
+    when(this.todoSvc.getAll()).thenReturn(Arrays.asList(macska, kutya));
 
-        Todo macska = new Todo("macska");
-        macska.setDone(true);
-        Todo kutya = new Todo("kutya");
-        when(this.todoSvc.getAll()).thenReturn(Arrays.asList(macska, kutya));
+    doAnswer((Answer<TodosListDto>) invocation -> {
+      Todo todo = invocation.getArgument(0);
+      TodosListDto dto = new TodosListDto();
+      dto.title = todo.getTitle();
+      dto.done = todo.isDone();
+      dto.urgent = todo.isUrgent();
+      return dto;
+    }).when(this.todoSvc).todoToListDto(any());
 
-        doAnswer((Answer<TodosListDto>) invocation -> {
-            Todo todo = invocation.getArgument(0);
-            TodosListDto dto = new TodosListDto();
-            dto.title = todo.getTitle();
-            dto.done = todo.isDone();
-            dto.urgent = todo.isUrgent();
-            return dto;
-        }).when(this.todoSvc).todoToListDto(any());
+    mockMvc.perform(get("/api/todo?isActive=true")
+        .contentType(MediaType.APPLICATION_JSON))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$", Matchers.hasSize(1)))
+        .andExpect(jsonPath("$[0].title", is("kutya")));
 
-        mockMvc.perform(get("/api/todo?isActive=true")
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$", Matchers.hasSize(1)))
-                .andExpect(jsonPath("$[0].title", is("kutya")));
-
-    }
-
-
+  }
 
 
 }

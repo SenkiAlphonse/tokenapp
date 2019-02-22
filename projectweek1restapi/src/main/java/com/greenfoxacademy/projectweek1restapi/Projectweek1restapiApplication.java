@@ -7,9 +7,9 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 @SpringBootApplication
 public class Projectweek1restapiApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(Projectweek1restapiApplication.class, args);
-    }
+  public static void main(String[] args) {
+    SpringApplication.run(Projectweek1restapiApplication.class, args);
+  }
 
 }
 

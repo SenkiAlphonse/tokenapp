@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface AssigneeRepository extends CrudRepository<Assignee, Long> {
-    List<Assignee> findAssigneeByNameContaining(String term);
+  List<Assignee> findAssigneeByNameContaining(String term);
 }

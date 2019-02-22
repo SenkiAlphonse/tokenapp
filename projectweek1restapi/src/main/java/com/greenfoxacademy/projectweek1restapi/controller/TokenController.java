@@ -13,16 +13,16 @@ import org.springframework.web.bind.annotation.RestController;
 public class TokenController {
 
 
-    private JwtGenerator jwtGenerator;
+  private JwtGenerator jwtGenerator;
 
-    public TokenController(JwtGenerator jwtGenerator) {
-        this.jwtGenerator = jwtGenerator;
-    }
+  public TokenController(JwtGenerator jwtGenerator) {
+    this.jwtGenerator = jwtGenerator;
+  }
 
-    @PostMapping
-    public String generate(@RequestBody final JwtUser jwtUser) {
+  @PostMapping
+  public String generate(@RequestBody final JwtUser jwtUser) {
 
-        return jwtGenerator.generate(jwtUser);
+    return jwtGenerator.generate(jwtUser);
 
-    }
+  }
 }

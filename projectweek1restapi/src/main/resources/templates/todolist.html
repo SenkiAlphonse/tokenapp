@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en" >
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Todo CRUD App</title>
@@ -32,8 +32,8 @@
         <td th:text="${todo.getTitle()}"></td>
         <td th:text="${todo.isDone()}"></td>
         <td th:text="${todo.isUrgent()}"></td>
-        <td> <a th:href="'/' + ${todo.getId()} + '/com.greenfoxacademy.projectweek1restapi.repository'">XXX</a></td>
-        <td> <a th:href="'/' + ${todo.getId()} + '/edit'">[]</a></td>
+        <td><a th:href="'/' + ${todo.getId()} + '/com.greenfoxacademy.projectweek1restapi.repository'">XXX</a></td>
+        <td><a th:href="'/' + ${todo.getId()} + '/edit'">[]</a></td>
         <td th:text="${todo.assignee?.name}"></td>
     </tr>
     </tbody>

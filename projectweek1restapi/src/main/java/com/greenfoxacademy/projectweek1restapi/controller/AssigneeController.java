@@ -13,47 +13,48 @@ import com.greenfoxacademy.projectweek1restapi.repository.AssigneeServiceImpl;
 @Controller
 public class AssigneeController {
 
-    private AssigneeServiceImpl assigneeSvc;
+  private AssigneeServiceImpl assigneeSvc;
 
-    @Autowired
-    public AssigneeController(AssigneeServiceImpl assigneeSvc) {
-        this.assigneeSvc=assigneeSvc;
-    }
+  @Autowired
+  public AssigneeController(AssigneeServiceImpl assigneeSvc) {
+    this.assigneeSvc = assigneeSvc;
+  }
 
-    @GetMapping("/assignee")
-    public String showAss (Model model) {
-        model.addAttribute("assignees", assigneeSvc.getAll());
-        return "assigneelist";
-    }
+  @GetMapping("/assignee")
+  public String showAss(Model model) {
+    model.addAttribute("assignees", assigneeSvc.getAll());
+    return "assigneelist";
+  }
 
-    @GetMapping("/assignee/add")
-    public String addAssForm (Model model) {
-        model.addAttribute("ass", new Assignee());
-        return "addassignee";
-    }
-    @PostMapping("/assignee/add")
-    public String addNewAss (@ModelAttribute Assignee assignee) {
-        assigneeSvc.addAssignee(assignee);
-        return "redirect:/assignee";
-    }
+  @GetMapping("/assignee/add")
+  public String addAssForm(Model model) {
+    model.addAttribute("ass", new Assignee());
+    return "addassignee";
+  }
 
-    @GetMapping("/{id}/delete-assignee")
-    public String deleteTodo (@PathVariable long id) {
-        assigneeSvc.deleteAssigneeById(id);
-        return "redirect:/assignee";
-    }
+  @PostMapping("/assignee/add")
+  public String addNewAss(@ModelAttribute Assignee assignee) {
+    assigneeSvc.addAssignee(assignee);
+    return "redirect:/assignee";
+  }
 
-    @GetMapping("/{id}/edit-assignee")
-    public String assEditor (@PathVariable long id, Model model) {
-        model.addAttribute("ass", assigneeSvc.getAssigneeById(id));
-        return "editassignee";
-    }
+  @GetMapping("/{id}/delete-assignee")
+  public String deleteTodo(@PathVariable long id) {
+    assigneeSvc.deleteAssigneeById(id);
+    return "redirect:/assignee";
+  }
+
+  @GetMapping("/{id}/edit-assignee")
+  public String assEditor(@PathVariable long id, Model model) {
+    model.addAttribute("ass", assigneeSvc.getAssigneeById(id));
+    return "editassignee";
+  }
 
 
-    @PostMapping("/{id}/edit-assignee")
-    public String updateAss (@ModelAttribute Assignee assignee) {
-        assigneeSvc.addAssignee(assignee);
+  @PostMapping("/{id}/edit-assignee")
+  public String updateAss(@ModelAttribute Assignee assignee) {
+    assigneeSvc.addAssignee(assignee);
 
-        return "redirect:/assignee";
-    }
+    return "redirect:/assignee";
+  }
 }

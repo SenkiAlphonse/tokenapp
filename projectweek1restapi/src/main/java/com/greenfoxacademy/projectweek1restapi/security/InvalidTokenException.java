@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 public class InvalidTokenException extends AuthenticationException {
 
-    public InvalidTokenException(String msg) {
-        super(msg);
-    }
+  public InvalidTokenException(String msg) {
+    super(msg);
+  }
 }
